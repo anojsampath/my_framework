@@ -1,0 +1,28 @@
+import pyshark
+
+# Specify the path to the Wireshark data file
+data_file = r'C:\Users\user\Desktop\wireshark_file.pcap'
+
+# Open the capture file
+capture = pyshark.FileCapture(data_file)
+
+# Iterate over each packet in the capture file
+for packet in capture:
+    # Extract the source and destination IP addresses
+    src_ip = packet.ip.src
+    dst_ip = packet.ip.dst
+    
+    # Extract the source and destination ports
+    src_port = packet.tcp.srcport
+    dst_port = packet.tcp.dstport
+    
+    # Extract the protocol used
+    protocol = packet.transport_layer
+    
+    # Print the packet information
+    print(f"Source IP: {src_ip}\tDestination IP: {dst_ip}")
+    print(f"Source Port: {src_port}\tDestination Port: {dst_port}")
+    print(f"Protocol: {protocol}\n")
+
+# Close the capture file
+capture.close()
